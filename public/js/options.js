@@ -20,18 +20,63 @@ $(function () {
   // ~~~~~~~~~~~~~~~~~~~~~~~
     // This looks like a great place to start AJAX work with a request for all attractions. Don't forget that these kinds of requests are async, so we won't have all of the attractions until it comes back, but once it comes back we can make the option tags
   // ~~~~~~~~~~~~~~~~~~~~~~~
+    
+    var hotels;
+    var restaurants;
+    var activities;
+    
+    //ajax for hotels
+    $.ajax({
+      method: 'GET',
+      url: '/api/hotels'
+    })
+    .then(function(foundHotels){
+      hotels = foundHotels;
+      hotels.forEach(makeOption, $hotelSelect);
+      attractionsModule.loadEnhancedAttractions('hotels', hotels);
+      console.log('it worked!!');
+    })
+    .catch(function(err){
+      console.error(err);
+    });
+  
+    //ajax for restaurants
+    $.ajax({
+      method: 'GET',
+      url: '/api/restaurants'
+    })
+    .then(function(foundRestaurants){
+      restaurants = foundRestaurants;
+      restaurants.forEach(makeOption, $restaurantSelect);
+      attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
+    })
+    .catch(function(err){
+      console.error(err);
+    });
+  
+    //ajax for activities
+    $.ajax({
+      method: 'GET',
+      url: '/api/activities'
+    })
+    .then(function(foundActivities){
+      activities = foundActivities;
+      activities.forEach(makeOption, $activitySelect);
+      attractionsModule.loadEnhancedAttractions('activities', activities);
+    })
+    .catch(function(err){
+      console.error(err);
+    });
 
     // make all the option tags (second arg of `forEach` is a `this` binding)
-    hotels.forEach(makeOption, $hotelSelect);
-    restaurants.forEach(makeOption, $restaurantSelect);
-    activities.forEach(makeOption, $activitySelect);
+    
 
     // Once you've made AJAX calls to retrieve this information,
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
-    attractionsModule.loadEnhancedAttractions('hotels', hotels);
-    attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
-    attractionsModule.loadEnhancedAttractions('activities', activities);
+    
+    
+    
 
     function makeOption(databaseAttraction) {
         var $option = $('<option></option>') // makes a new option tag
