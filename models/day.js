@@ -14,3 +14,6 @@ var Day = db.define('day', function(){
 Day.belongsTo(Hotel);
 Day.belongsToMany(Restaurant, { through: 'day_restaurant' });
 Day.belongsToMany(Activity, { through: 'day_activity' });
+
+
+module.exports = Day;

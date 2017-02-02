@@ -3,7 +3,7 @@ var router = require('express').Router();
 var Hotel = require('../../models/hotel');
 var Restaurant = require('../../models/restaurant');
 var Activity = require('../../models/activity');
-var Days = require('../../models/day');
+var Day = require('../../models/day');
 
 router.get('/', function(req, res, next){
   res.send('this will give us the list of days');
@@ -14,7 +14,14 @@ router.delete('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-  res.send('this will create a new day');
+  //console.log(req.body)
+  Day.create({
+    number: parseInt(req.body.number)
+  })
+  .then(function (day){
+    res.send(day)
+  })
+  .catch(next);
 });
 
 router.get('/:id/restaurants', function(req, res, next){
