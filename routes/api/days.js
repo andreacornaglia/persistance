@@ -6,7 +6,10 @@ var Activity = require('../../models/activity');
 var Day = require('../../models/day');
 
 router.get('/', function(req, res, next){
-  res.send('this will give us the list of days');
+  Day.findAll().then(function(foundDays){
+    res.send(foundDays);
+  })
+  .catch(next);
 });
 
 router.delete('/:id', function(req, res, next){
