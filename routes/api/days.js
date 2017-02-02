@@ -13,14 +13,29 @@ router.get('/', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
-  var id =  req.params.id;
+  var number =  req.params.id;
+  console.log(number);
   Day.destroy({
     where: {
-      id : id
+      number : number
     }
   }).then(function (deleted){
-    console.log(deleted)
+    Day.update({
+      number: number
+      },
+      {
+      where: {
+        number : number - 1
+      }
+    })
+    .then(function(){
+      console.log('value updated!');
+    })
+    .catch(next)
+    console.log('The deleted worked!');
   })
+  .catch(next);
+
 });
 
 router.post('/', function(req, res, next){

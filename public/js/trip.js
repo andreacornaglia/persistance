@@ -62,7 +62,7 @@ var tripModule = (function () {
 
     //AJAX post request to create day in the DB
     $.post('api/days',{number: newDay.number}).then(function (day){
-      console.log(day)
+      //console.log(day)
     })
     .catch(function (err){
       console.error(err)
@@ -73,9 +73,11 @@ var tripModule = (function () {
     // Do not delete a day until it has already been deleted from the DB
   // ~~~~~~~~~~~~~~~~~~~~~~~
   function deleteCurrentDay () {
+    //console.log('this is currentDay:', currentDay.number);
     // prevent deleting last day
     if (days.length < 2 || !currentDay) return;
     // remove from the collection
+    var dayToUse = currentDay;
     var index = days.indexOf(currentDay),
       previousDay = days.splice(index, 1)[0],
       newCurrent = days[index] || days[index - 1];
@@ -88,10 +90,10 @@ var tripModule = (function () {
 
     //Deleting a day with AJAX
     $.ajax({
-    url: '/api/days/'+index,
+    url: '/api/days/'+ dayToUse.number,
     type: 'DELETE',
     success: function(){
-      console.log('deleted!')
+      //console.log(currentDay)
     }
     });
 
@@ -110,7 +112,7 @@ var tripModule = (function () {
         .then(function(daysFound){
           //console.log(daysFound);
           daysFound.forEach(function(day){
-            var newDay = dayModule.create({ number: day.id }); // dayModule
+            var newDay = dayModule.create({ number: day.number }); // dayModule
             days.push(newDay);
           })
         })
