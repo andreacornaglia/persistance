@@ -13,7 +13,14 @@ router.get('/', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
-  res.send('this will delete this day');
+  var id =  req.params.id;
+  Day.destroy({
+    where: {
+      id : id
+    }
+  }).then(function (deleted){
+    console.log(deleted)
+  })
 });
 
 router.post('/', function(req, res, next){

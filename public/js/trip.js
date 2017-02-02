@@ -85,6 +85,16 @@ var tripModule = (function () {
     });
     switchTo(newCurrent);
     previousDay.hideButton();
+
+    //Deleting a day with AJAX
+    $.ajax({
+    url: '/api/days/'+index,
+    type: 'DELETE',
+    success: function(){
+      console.log('deleted!')
+    }
+    });
+
   }
 
   // globally accessible module methods
@@ -98,7 +108,7 @@ var tripModule = (function () {
       // ~~~~~~~~~~~~~~~~~~~~~~~
       $.get('/api/days')
         .then(function(daysFound){
-          console.log(daysFound);
+          //console.log(daysFound);
           daysFound.forEach(function(day){
             var newDay = dayModule.create({ number: day.id }); // dayModule
             days.push(newDay);
