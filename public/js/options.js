@@ -74,9 +74,6 @@ $(function () {
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
 
-
-
-
     function makeOption(databaseAttraction) {
         var $option = $('<option></option>') // makes a new option tag
           .text(databaseAttraction.name)
