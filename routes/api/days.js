@@ -3,6 +3,33 @@ var router = require('express').Router();
 var Hotel = require('../../models/hotel');
 var Restaurant = require('../../models/restaurant');
 var Activity = require('../../models/activity');
-var Days = require('../../models/days');
+var Days = require('../../models/day');
 
-router.get('/day/:id');
+router.get('/', function(req, res, next){
+  res.send('this will give us the list of days');
+});
+
+router.delete('/:id', function(req, res, next){
+  res.send('this will delete this day');
+});
+
+router.post('/', function(req, res, next){
+  res.send('this will create a new day');
+});
+
+router.get('/:id/restaurants', function(req, res, next){
+  var day = req.params.id;
+  res.send(day);
+});
+
+router.get('/:id/hotels', function(req, res, next){
+  var day = req.params.id;
+  res.send(day);
+});
+
+router.get('/:id/activities', function(req, res, next){
+  var day = req.params.id;
+  res.send(day);
+});
+
+module.exports = router;
